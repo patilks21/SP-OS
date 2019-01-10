@@ -52,7 +52,7 @@ public class table {
 			return code;
 		else
 			
-			return "error";
+			return word;
 		
 	}
 	
@@ -86,8 +86,10 @@ public class table {
 		    	 String so=getcode(sw[i]);
 		    	 
 		    	 System.out.print(so+" ");
+		    	 bw.write(so+" ");
 		     }
 		     System.out.println("");
+		     bw.write("\n");
 		     
 		     ss=br.readLine();
 		   }
