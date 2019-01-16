@@ -34,9 +34,9 @@ public class table {
 		cond.put("GE", "5");
 		cond.put("ANY", "6");
 		
-		dir.put("START", "1");
-		dir.put("END", "2");
-		
+		dir.put("START", "001");
+		dir.put("END", "002");
+		dir.put("DS", "003");
 	}
 	
 	String getcode(String word)
@@ -73,38 +73,73 @@ public class table {
 		BufferedWriter bw=new BufferedWriter(f2);
 		String ss;
 		ss=br.readLine();
-		
-		 while ( ss!= null) {
+		 while ( ss!= null) 
+		 {
 			 String sw[];
 			 sw=ss.split(" ");
+			 /*if(sw[0]=="START")
+	    	 {System.out.print(" ** ");
+	    		 lc=Integer.parseInt(sw[1]);
+	    		 String so=getcode(sw[0]);
+	    		 System.out.print(so+" "+sw[1]);
+		    	 bw.write(so+" "+sw[1]);
+	    	 }
 			 if(sw.length>4)
 			 {
-				 System.out.print("error in input");
+				 System.out.print("error in input");break;
 			 }
-		     for(int i=0;i<sw.length;i++)
-		     {
-		    	 String so=getcode(sw[i]);
+			 
+			 if(sw.length>2)
+			 if(sw[1]=="DS")
+	    	 {System.out.print(" ** ");
+	    		 symbol.putIfAbsent(sw[0], Integer.toString(lc));
+	    	 }*/
+			 //else
+			 { 
+				 
+				 System.out.print(lc+" ");
+				 bw.write(lc+" ");
+				 for(int i=0;i<sw.length;i++)
+				 {
 		    	 
-		    	 System.out.print(so+" ");
-		    	 bw.write(so+" ");
-		     }
-		     System.out.println("");
-		     bw.write("\n");
+					
+					 String so=getcode(sw[i]);
+					 if(so=="001")
+					 {
+						 lc=Integer.parseInt(sw[1]);break;
+					 }
+					 if(so=="003")
+					 {
+						 symbol.replace(sw[0], null, Integer.toString(lc));
+						 
+					 }
+					 if(so==sw[i])
+					 {
+						 symbol.put(so, null);
+		    		 
+						 //if(so[0]=="=");
+		    		 
+					 }
+		    	
+					 System.out.print(so+" ");
+					 bw.write(so+" ");
+				 }
+				 System.out.println("");
+				 bw.write("\n");
 		     
-		     ss=br.readLine();
-		   }
+				 //ss=br.readLine();
+			 }
+			 lc++;
+			 ss=br.readLine();
+		 }
 		
 		bw.close();
 	}
 	
 	public static void main(String[] args) throws IOException {
 		table t=new table();
-		System.out.println(t.opcode.entrySet());
-		System.out.println(t.reg.entrySet());
-		System.out.println(t.cond.entrySet());
-		System.out.println(t.dir.entrySet());
 		t.pass1();
-		
+		System.out.println(t.symbol.entrySet());
 	}
 
 }
