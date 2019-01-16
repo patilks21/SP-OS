@@ -1,3 +1,4 @@
+
 import java.util.HashMap;
 import java.io.*;
 public class table {
@@ -58,7 +59,6 @@ public class table {
 	
 	void pass1() throws IOException{
 		int lc=0;
-		int sp=0,lp=0;
 		FileReader f1=null;
 		FileWriter f2=null;
 		try{
@@ -77,24 +77,7 @@ public class table {
 		 {
 			 String sw[];
 			 sw=ss.split(" ");
-			 /*if(sw[0]=="START")
-	    	 {System.out.print(" ** ");
-	    		 lc=Integer.parseInt(sw[1]);
-	    		 String so=getcode(sw[0]);
-	    		 System.out.print(so+" "+sw[1]);
-		    	 bw.write(so+" "+sw[1]);
-	    	 }
-			 if(sw.length>4)
-			 {
-				 System.out.print("error in input");break;
-			 }
-			 
-			 if(sw.length>2)
-			 if(sw[1]=="DS")
-	    	 {System.out.print(" ** ");
-	    		 symbol.putIfAbsent(sw[0], Integer.toString(lc));
-	    	 }*/
-			 //else
+			
 			 { 
 				 
 				 System.out.print(lc+" ");
@@ -106,7 +89,7 @@ public class table {
 					 String so=getcode(sw[i]);
 					 if(so=="001")
 					 {
-						 lc=Integer.parseInt(sw[1]);break;
+						 lc=Integer.parseInt(sw[1]);
 					 }
 					 if(so=="003")
 					 {
@@ -115,9 +98,17 @@ public class table {
 					 }
 					 if(so==sw[i])
 					 {
-						 symbol.put(so, null);
-		    		 
-						 //if(so[0]=="=");
+						 if(so.startsWith("="))
+						 {
+							 literal.put(so,  Integer.toString(lc));
+							 so="L"+so;
+						 }
+						 else if(so.startsWith("1")){}
+						 else
+						 {
+							 symbol.put(so, null);
+							 so="S"+so;
+						 }
 		    		 
 					 }
 		    	
@@ -127,7 +118,6 @@ public class table {
 				 System.out.println("");
 				 bw.write("\n");
 		     
-				 //ss=br.readLine();
 			 }
 			 lc++;
 			 ss=br.readLine();
@@ -140,6 +130,7 @@ public class table {
 		table t=new table();
 		t.pass1();
 		System.out.println(t.symbol.entrySet());
+		System.out.println(t.literal.entrySet());
 	}
 
 }
