@@ -17,12 +17,55 @@ public class secpass
         ois.close();
         ois1.close();
 	}
+	 void pass() throws IOException
+	{
+		FileReader f1=new FileReader("output.txt");
+		BufferedReader br=new BufferedReader(f1);
+		FileWriter f2=new FileWriter("final.txt");
+		BufferedWriter bw=new BufferedWriter(f2);
+		String ss=br.readLine();
+		while(ss != null)
+		{
+			String sw[];
+			sw=ss.split(" ");
+			for(int i=0;i<sw.length;i++)
+			{
+				if(sw[i].startsWith("S"))
+				{
+					String s=sw[i];
+					String k=s.substring(1);
+					String v=symbol.get(k);
+					System.out.print(v+" ");
+					bw.write(v+" ");
+					
+				}
+				else if(sw[i].startsWith("L"))
+				{
+					String s=sw[i];
+					String k=s.substring(1);
+					String v=literal.get(k);
+					System.out.print(v+" ");
+					bw.write(v+" ");
+				}
+				else
+				{
+					System.out.print(sw[i]+" ");
+					bw.write(sw[i]+" ");
+				}
+				
+			}
+			System.out.println("\n");
+			bw.write("\n");
+			ss=br.readLine();
+		}
+		bw.close();
+		br.close();
+	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, IOException 
 	{
 		secpass sec=new secpass();
-		System.out.println(sec.symbol.entrySet());
-		System.out.println(sec.literal.entrySet());
+		sec.pass();
 	}
 
 }
