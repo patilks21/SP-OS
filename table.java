@@ -1,4 +1,3 @@
-
 import java.util.HashMap;
 import java.io.*;
 public class table {
@@ -98,17 +97,19 @@ public class table {
 					 }
 					 if(so==sw[i])
 					 {
-						 if(so.startsWith("="))
-						 {
-							 literal.put(so,  Integer.toString(lc));
-							 so="L"+so;
-						 }
-						 else if(so.startsWith("1")){}
-						 else
-						 {
+						
+						if(so.startsWith("="))
+						{
+							literal.put(so,  Integer.toString(lc));
+							so="L"+so;
+						}
+						else if(so.matches("[0-9]*")){}
+						 
+						else
+						{
 							 symbol.put(so, null);
 							 so="S"+so;
-						 }
+						}
 		    		 
 					 }
 		    	
@@ -124,6 +125,14 @@ public class table {
 		 }
 		
 		bw.close();
+		FileOutputStream fos=new FileOutputStream("outputsymtab.txt");
+        ObjectOutputStream oos=new ObjectOutputStream(fos);
+		oos.writeObject(symbol);
+		oos.close();
+		FileOutputStream fos1=new FileOutputStream("outputlittab.txt");
+        ObjectOutputStream oos1=new ObjectOutputStream(fos1);
+		oos1.writeObject(literal);
+		oos1.close();
 	}
 	
 	public static void main(String[] args) throws IOException {
