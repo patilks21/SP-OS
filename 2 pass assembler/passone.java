@@ -104,11 +104,26 @@ public class table {
 							so="L"+so;
 						}
 						else if(so.matches("[0-9]*")){}
-						 
+						
 						else
 						{
-							 symbol.put(so, null);
-							 so="S"+so;
+							if(symbol.containsKey(so))
+							{
+								so="S"+so;
+							}
+							else
+							{
+								if(i==0)
+								{
+									symbol.put(so, Integer.toString(lc));
+									so="S"+so;
+								}
+								else
+								{
+									symbol.put(so, null);
+									so="S"+so;
+								}
+							}
 						}
 		    		 
 					 }
@@ -138,7 +153,9 @@ public class table {
 	public static void main(String[] args) throws IOException {
 		table t=new table();
 		t.pass1();
+		System.out.print("Symbol table : ");
 		System.out.println(t.symbol.entrySet());
+		System.out.print("Literal table : ");
 		System.out.println(t.literal.entrySet());
 	}
 
