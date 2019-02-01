@@ -12,10 +12,15 @@ class MDT
 	String t2;
 	String t3;
 }
+class MNT
+{
+	String mname;
+}
 public class macropass1 
 {
 	static LinkedList<PTAB> ptab=new LinkedList<PTAB>();
 	static LinkedList<MDT> mdt=new LinkedList<MDT>();
+	static LinkedList<MNT> mnt=new LinkedList<MNT>();
 	void passone() throws IOException
 	{
 		
@@ -53,7 +58,10 @@ public class macropass1
 					p.para=tkk[i];
 					ptab.add(p);
 				}
-			}			
+			}
+			MNT m=new MNT();
+			m.mname=tkk[0];
+			mnt.add(m);
 		}
 		ss=br.readLine();
 		while(ss!=null)
@@ -72,7 +80,7 @@ public class macropass1
 				String n="p";
 				int i=0;
 				for(PTAB p:ptab)
-				{System.out.println(i);
+				{
 					if(tkk[1].equals(p.para))
 					{
 						break;
@@ -88,7 +96,7 @@ public class macropass1
 				int i=0;
 				for(PTAB p:ptab)
 				{
-					if(tkk[1].equals(p.para))
+					if(tkk[2].equals(p.para))
 					{
 						break;
 					}
@@ -102,7 +110,38 @@ public class macropass1
 			ss=br.readLine();
 		}
 		ss=br.readLine();
+		String cp[]=ss.split(" ");
+		int i=1;
+		for(PTAB p:ptab)
+		{
+			if(i<cp.length)
+			{
+				p.value=cp[i];
+				i++;
+			}
+		}
 		
+		FileWriter fos=new FileWriter("mnt.txt");
+		BufferedWriter brr=new BufferedWriter(fos);
+		for(MNT m:mnt)
+		{
+			brr.write(m.mname+"\n");
+		}
+		brr.close();
+		FileWriter fos1=new FileWriter("mdt.txt");
+		BufferedWriter brr1=new BufferedWriter(fos1);
+		for(MDT m:mdt)
+		{
+			brr1.write(m.t1+" "+m.t2+" "+m.t3+"\n");
+		}
+		brr1.close();
+		FileWriter fos2=new FileWriter("ptab.txt");
+		BufferedWriter brr2=new BufferedWriter(fos2);
+		for(PTAB m:ptab)
+		{
+			brr2.write(m.para+" "+m.value+" "+m.dvalue+"\n");
+		}
+		brr2.close();
 		
 	}
 	public static void main(String[] args) throws IOException 
@@ -110,6 +149,11 @@ public class macropass1
 		macropass1 p1=new macropass1();
 		
 		p1.passone();
+		System.out.println("MNT");
+		for(MNT m:mnt)
+		{
+			System.out.println(m.mname);
+		}
 		System.out.println("PTAB");
 		for(PTAB p:ptab)
 		{
