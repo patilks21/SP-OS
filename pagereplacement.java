@@ -27,7 +27,7 @@ public class pagereplacement
 			else
 			{
 				f++;
-				if(q.size()<3)
+				if(q.size()<framesize)
 				{
 					q.add(page[i]);
 				}
@@ -62,7 +62,7 @@ public class pagereplacement
 			else
 			{
 				f++;
-				if(l.size()<3)
+				if(l.size()<framesize)
 				{
 					l.add(page[i]);
 				}
@@ -95,35 +95,54 @@ public class pagereplacement
 			else
 			{
 				f++;
-				if(l.size()<3)
+				if(l.size()<framesize)
 				{
 					l.add(page[i]);
-					System.out.println(l);
 				}
 				else
 				{
-					List<String> a =new ArrayList<>();
+					
+					List<String> a =new ArrayList<>();//new list containing future pages 
 					for(int j=i+1;j<size;j++)
 					{
-						if(a.size()<=framesize && l.contains(page[j]))
+						if(a.size()<=framesize && l.contains(page[j]))//future pages that exist into current page list
 						{
-							if(a.contains(page[j])){}
+							if(a.contains(page[j])){}//skips if page already exist
 							else 
 							{
-								a.add(page[j]);
+								a.add(page[j]);//adds page to future list
 							}
 						}
-						else{break;}
+						else{}
 					}
-					if(l.contains(a.get(2)))
+					int as=a.size();//size of future list
+					if(as==l.size())//future list and current list of same size then
 					{
-						l.remove(a.get(2));
-						l.add(page[i]);
+						
+						if(l.contains(a.get(as-1)))//remove from the current page list the last element of future page list
+						{
+							l.remove(a.get(as-1));
+							l.add(page[i]);
+						}
+						else if(l.contains(a.get(as-2)))
+						{
+							l.remove(a.get(as-2));
+							l.add(page[i]);
+						}
+						else
+						{
+							l.remove(a.get(as-3));
+							l.add(page[i]);
+						}
 					}
-					else if(l.contains(a.get(1)))
+					else
 					{
-						l.remove(a.get(1));
-						l.add(page[i]);
+						List<String> ex =new ArrayList<>(); //list of extra elements
+						ex.addAll(l);//copy current pages into new list
+						ex.removeAll(a);//remove the common elements of list a and current page list l
+						System.out.println("extra is "+ex);
+						l.remove(ex.get(0));//remove that extra element from main page list 
+						l.add(page[i]);		//add the new page into main list		
 					}
 					System.out.println(l);
 				}
