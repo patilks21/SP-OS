@@ -155,7 +155,16 @@ public class pagereplacement
 	{
 		pagereplacement pr=new pagereplacement();
 		pr.input();
-		pr.optimum();
+		int ch;
+		System.out.println("Enter 1 for fifo,2 for lru, 3 for optimum");
+		ch=pr.sc.nextInt();
+		switch(ch)
+		{
+		case 1:pr.fifo();break;
+		case 2:pr.lru();break;
+		case 3:pr.optimum();break;
+		}
+		
 	}
 
 }
